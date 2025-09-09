@@ -1,6 +1,6 @@
 import streamlit as st
 import gspread
-# from oauth2client.service_account import ServiceAccountCredentials
+from datetime import datetime
 import pandas as pd
 import time
 from google.oauth2.service_account import Credentials
@@ -139,6 +139,7 @@ if submitted and msg:
 last_update = st.session_state.get('last_update', None)
 # 自動刷新 (每 3 秒)
 st_autorefresh(interval=3000, key="chat_refresh")
+
 
 
 
