@@ -18,7 +18,7 @@ if not st.session_state.authenticated:
     if st.button("登入"):
         if password_input == PASSWORD:
             st.session_state.authenticated = True
-            st.experimental_rerun()
+            st.rerun()
         else:
             st.error("密碼錯誤")
     st.stop()  # 未登入，不渲染下面聊天室內容
@@ -202,6 +202,7 @@ for u in online_users:
     st.sidebar.write(u)
 # 自動刷新 (每 10 秒)
 st_autorefresh(interval=10000, key="chat_refresh")
+
 
 
 
