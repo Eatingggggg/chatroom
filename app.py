@@ -51,24 +51,6 @@ if st.session_state.username == "":
     st.stop()
 
 username = st.session_state.username
-user_initial = row['user'][0]  # 取名字第一個字
-if row['user'] == username:
-    st.markdown(
-        f"<div class='chat-bubble user'>"
-        f"<div class='avatar-letter'>{user_initial}</div>"
-        f"<div><b>{row['user']}</b><br>{row['message']}"
-        f"<div class='timestamp'>{row['timestamp']}</div></div></div>",
-        unsafe_allow_html=True
-    )
-else:
-    st.markdown(
-        f"<div class='chat-bubble other'>"
-        f"<div class='avatar-letter'>{user_initial}</div>"
-        f"<div><b>{row['user']}</b><br>{row['message']}"
-        f"<div class='timestamp'>{row['timestamp']}</div></div></div>",
-        unsafe_allow_html=True
-    )
-
 
 # 讀取聊天紀錄
 # messages = sheet.get_all_records()
@@ -143,20 +125,23 @@ st.markdown("<div class='chat-container' id='chat-box'>", unsafe_allow_html=True
 
 if not df.empty:
     for _, row in df.iterrows():
-        if row['user'] == username:
-            st.markdown(
-                f"<div class='chat-bubble user'>"
-                f"<b>{row['user']}</b><br>{row['message']}"
-                f"<div class='timestamp'>{row['timestamp']}</div></div>",
-                unsafe_allow_html=True
-            )
-        else:
-            st.markdown(
-                f"<div class='chat-bubble other'>"
-                f"<b>{row['user']}</b><br>{row['message']}"
-                f"<div class='timestamp'>{row['timestamp']}</div></div>",
-                unsafe_allow_html=True
-            )
+         user_initial = row['user'][0]  # 取名字第一個字
+         if row['user'] == username:
+             st.markdown(
+                 f"<div class='chat-bubble user'>"
+                 f"<div class='avatar-letter'>{user_initial}</div>"
+                 f"<div><b>{row['user']}</b><br>{row['message']}"
+                 f"<div class='timestamp'>{row['timestamp']}</div></div></div>",
+                 unsafe_allow_html=True
+             )
+         else:
+             st.markdown(
+                 f"<div class='chat-bubble other'>"
+                 f"<div class='avatar-letter'>{user_initial}</div>"
+                 f"<div><b>{row['user']}</b><br>{row['message']}"
+                 f"<div class='timestamp'>{row['timestamp']}</div></div></div>",
+                 unsafe_allow_html=True
+             )
 else:
     st.info("目前還沒有訊息，快來成為第一個發言的人！")
 
@@ -186,6 +171,7 @@ if submitted and msg:
          # 更新 session_state 訊息數量，用於觸發重新渲染
          st.session_state['last_update'] = time.time()
 last_update = st.session_state.get('last_update', None)
+
 
 
 
