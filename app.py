@@ -3,15 +3,19 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import pandas as pd
 import time
+from google.oauth2 import service_account
 
 # Google Sheet 設定
 SHEET_NAME = "chatroom"
 scope = ["https://spreadsheets.google.com/feeds",
          "https://www.googleapis.com/auth/drive"]
 
+creds = service_account.Credentials.from_service_account_info(
+    st.secrets["gcp_service_account"]
+)
 # 從 secrets 讀取 Google Service Account
-creds = ServiceAccountCredentials.from_json_keyfile_dict(
-    st.secrets["gcp_service_account"])#, scope
+# creds = ServiceAccountCredentials.from_json_keyfile_dict(
+#     st.secrets["gcp_service_account"]), scope
 # )
 client = gspread.authorize(creds)
 sheet = client.open(SHEET_NAME).sheet1
@@ -123,4 +127,5 @@ if submitted and msg:
 
 # 自動刷新 (每 3 秒)
 st.experimental_autorefresh(interval=3000, key="refresh")
+
 
