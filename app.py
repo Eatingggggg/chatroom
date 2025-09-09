@@ -8,14 +8,14 @@ import pytz
 from streamlit_autorefresh import st_autorefresh
 
 # 預設密碼
-PASSWORD = "1234"
+PASSWORD = "threepayLo"
 
 if "authenticated" not in st.session_state:
     st.session_state.authenticated = False
 
 if not st.session_state.authenticated:
-    password_input = st.text_input("請輸入密碼", type="password")
-    if st.button("登入"):
+    password_input = st.text_input("請輸入聊天室密碼", type="password")
+    if st.button("Submit"):
         if password_input == PASSWORD:
             st.session_state.authenticated = True
             st.rerun()
@@ -202,6 +202,7 @@ for u in online_users:
     st.sidebar.write(u)
 # 自動刷新 (每 10 秒)
 st_autorefresh(interval=10000, key="chat_refresh")
+
 
 
 
