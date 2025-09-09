@@ -85,7 +85,7 @@ st.markdown("""
     height: 30px;
     border-radius: 50%;
     background-color: #999;  /* 頭像背景顏色 */
-    color: white;            /* 字體顏色 */
+    color: black;            /* 字體顏色 */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -187,5 +187,6 @@ st.sidebar.markdown(f"**線上人數：{len(online_users)}**")
 st.sidebar.markdown("**線上使用者**")
 for u in online_users:
     st.sidebar.write(u)
+
 
 
