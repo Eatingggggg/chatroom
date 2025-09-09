@@ -1,6 +1,6 @@
 import streamlit as st
 import gspread
-from datetime import datetime
+from datetime import datetime, timedelta
 import pandas as pd
 import time
 from google.oauth2.service_account import Credentials
@@ -184,6 +184,7 @@ if submitted and msg:
          # 更新 session_state 訊息數量，用於觸發重新渲染
          st.session_state['last_update'] = time.time()
 last_update = st.session_state.get('last_update', None)
+
 
 
 
