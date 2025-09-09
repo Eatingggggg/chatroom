@@ -79,13 +79,12 @@ st.markdown("""
     display: flex;
     align-items: center;
 }
-
 .avatar-letter {
     width: 30px;
     height: 30px;
     border-radius: 50%;
     background-color: #999;  /* 頭像背景顏色 */
-    color: black;            /* 字體顏色 */
+    color: white;            /* 字體顏色 */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -95,6 +94,7 @@ st.markdown("""
 
 .user {
     background-color: #84C1FF;
+    color: black;
     margin-left: auto;
     text-align: right;
     flex-direction: row-reverse; /* 自己訊息頭像在右邊 */
@@ -187,6 +187,7 @@ st.sidebar.markdown(f"**線上人數：{len(online_users)}**")
 st.sidebar.markdown("**線上使用者**")
 for u in online_users:
     st.sidebar.write(u)
+
 
 
 
