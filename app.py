@@ -7,6 +7,12 @@ from google.oauth2.service_account import Credentials
 import gspread
 from streamlit_autorefresh import st_autorefresh
 
+# 設定時區，例如台北
+tz = pytz.timezone("Asia/Taipei")
+
+# # 取得當前時間
+# now = datetime.now(tz)
+
 # Google Sheet 設定
 SHEET_NAME = "chatroom"
 scope = ["https://www.googleapis.com/auth/spreadsheets",
@@ -123,14 +129,17 @@ with st.form("chat_form", clear_on_submit=True):
     submitted = st.form_submit_button("送出")
 
 if submitted and msg:
-    # 寫入 Google Sheet
-    sheet.append_row([username, msg, time.strftime("%Y-%m-%d %H:%M:%S")])
-    
-    # 更新 session_state 訊息數量，用於觸發重新渲染
-    st.session_state['last_update'] = time.time()
+         # 取得當前時間
+         now = datetime.now(tz)
+         # 寫入 Google Sheet
+         sheet.append_row([username, msg, now.strftime("%Y-%m-%d %H:%M:%S")])
+         
+         # 更新 session_state 訊息數量，用於觸發重新渲染
+         st.session_state['last_update'] = time.time()
 last_update = st.session_state.get('last_update', None)
 # 自動刷新 (每 3 秒)
 st_autorefresh(interval=3000, key="chat_refresh")
+
 
 
 
