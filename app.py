@@ -5,6 +5,7 @@ import pandas as pd
 import time
 from google.oauth2.service_account import Credentials
 import gspread
+from streamlit_autorefresh import st_autorefresh
 
 # Google Sheet 設定
 SHEET_NAME = "chatroom"
@@ -126,7 +127,8 @@ if submitted and msg:
     st.experimental_rerun()
 
 # 自動刷新 (每 3 秒)
-st.experimental_autorefresh(interval=3000, key="refresh")
+st_autorefresh(interval=3000, key="chat_refresh")
+
 
 
 
