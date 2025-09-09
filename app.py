@@ -4,7 +4,7 @@ import gspread
 import pandas as pd
 import time
 from google.oauth2.service_account import Credentials
-import gspread
+import pytz
 from streamlit_autorefresh import st_autorefresh
 
 # 設定時區，例如台北
@@ -139,6 +139,7 @@ if submitted and msg:
 last_update = st.session_state.get('last_update', None)
 # 自動刷新 (每 3 秒)
 st_autorefresh(interval=3000, key="chat_refresh")
+
 
 
 
