@@ -14,7 +14,8 @@ st_autorefresh(interval=10000, key="chat_refresh")
 tz = pytz.timezone("Asia/Taipei")
 
 # # 取得當前時間
-now = datetime.now(tz)
+# now = datetime.now(tz)
+now = datetime.now(tz).replace(tzinfo=None)  # 轉成 naive datetime
 
 # Google Sheet 設定
 SHEET_NAME = "chatroom"
@@ -172,16 +173,13 @@ if submitted and msg:
          st.session_state['last_update'] = time.time()
 last_update = st.session_state.get('last_update', None)
 
-# 轉成 datetime，假設原本是字串
-df['timestamp_dt'] = pd.to_datetime(df['timestamp'], errors='coerce')  # 先轉 datetime，不帶 tz
+# 將 Google Sheet 讀取的 timestamp 轉成 naive datetime
+df['timestamp_dt'] = pd.to_datetime(df['timestamp']).dt.tz_localize(None)  # 移除時區
 
-# 將 timestamp_dt 加上台北時區
-df['timestamp_dt'] = df['timestamp_dt'].dt.tz_localize(tz, ambiguous='NaT', nonexistent='shift_forward')
-
-# 篩選最近 5 分鐘的訊息
+# 設定線上判定時間（例如 5 分鐘內）
 time_threshold = now - timedelta(minutes=5)
-time_threshold = tz.localize(time_threshold)  # 確保 now 也有時區
 
+# 篩選在線使用者
 online_df = df[df['timestamp_dt'] >= time_threshold]
 online_users = online_df['user'].unique().tolist()
 
@@ -189,6 +187,7 @@ st.sidebar.markdown(f"**線上人數：{len(online_users)}**")
 st.sidebar.markdown("**線上使用者**")
 for u in online_users:
     st.sidebar.write(u)
+
 
 
 
