@@ -45,9 +45,9 @@ if "username" not in st.session_state:
     st.session_state.username = ""
 
 if st.session_state.username == "":
-    username_input = st.text_input("請輸入你的名字")
-    if username_input:
-        st.session_state.username = username_input
+    username_input = st.text_input("請輸入你的名字", "")
+    if username_input.strip():  # 避免只輸入空白
+        st.session_state.username = username_input.strip()
     st.stop()
 
 username = st.session_state.username
@@ -188,6 +188,7 @@ for u in online_users:
     st.sidebar.write(u)
 # 自動刷新 (每 10 秒)
 st_autorefresh(interval=10000, key="chat_refresh")
+
 
 
 
