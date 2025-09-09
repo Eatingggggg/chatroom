@@ -172,8 +172,9 @@ if submitted and msg:
 last_update = st.session_state.get('last_update', None)
 
 # 將 Google Sheet 讀取的 timestamp 轉成 naive datetime
-df['timestamp_dt'] = pd.to_datetime(df['timestamp']).dt.tz_localize(None)  # 移除時區
-
+# df['timestamp_dt'] = pd.to_datetime(df['timestamp']).dt.tz_localize(None)  # 移除時區
+df['timestamp_dt'] = pd.to_datetime(df['timestamp'])
+df['timestamp_dt'] = df['timestamp_dt'].dt.tz_localize(tz, ambiguous='NaT')  # 統一加上台北時區
 # 設定線上判定時間（例如 5 分鐘內）
 time_threshold = now - timedelta(minutes=15)
 
@@ -187,6 +188,7 @@ for u in online_users:
     st.sidebar.write(u)
 # 自動刷新 (每 10 秒)
 st_autorefresh(interval=10000, key="chat_refresh")
+
 
 
 
