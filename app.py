@@ -7,7 +7,7 @@ from google.oauth2.service_account import Credentials
 import pytz
 from streamlit_autorefresh import st_autorefresh
 
-# 自動刷新 (每 3 秒)
+# 自動刷新 (每 10 秒)
 st_autorefresh(interval=10000, key="chat_refresh")
 
 # 設定時區，例如台北
@@ -187,4 +187,5 @@ st.sidebar.markdown(f"**線上人數：{len(online_users)}**")
 st.sidebar.markdown("**線上使用者**")
 for u in online_users:
     st.sidebar.write(u)
+
 
