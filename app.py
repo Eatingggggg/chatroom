@@ -14,7 +14,7 @@ tz = pytz.timezone("Asia/Taipei")
 
 # # 取得當前時間
 # now = datetime.now(tz)
-now = datetime.now(tz).replace(tzinfo=None)  # 轉成 naive datetime
+now = pd.Timestamp(datetime.now(tz))
 
 # Google Sheet 設定
 SHEET_NAME = "chatroom"
@@ -188,6 +188,7 @@ for u in online_users:
     st.sidebar.write(u)
 # 自動刷新 (每 10 秒)
 st_autorefresh(interval=10000, key="chat_refresh")
+
 
 
 
