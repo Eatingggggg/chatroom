@@ -179,14 +179,16 @@ df['timestamp_dt'] = pd.to_datetime(df['timestamp']).dt.tz_localize(tz)  # 加�
 time_threshold = now - timedelta(minutes=15)
 
 # 篩選在線使用者
-df['timestamp_dt'] = pd.to_datetime(df['timestamp'])  # 將字串轉 datetime
-online_df = df[df['timestamp_dt'] >= time_threshold]
+# df['timestamp_dt'] = pd.to_datetime(df['timestamp'])  # 將字串轉 datetime
+# online_df = df[df['timestamp_dt'] >= time_threshold]
+online_df = df[pd.to_datetime(df['timestamp']) >= time_threshold]
 online_users = online_df['user'].unique().tolist()
 
 st.sidebar.markdown(f"**線上人數：{len(online_users)}**")
 st.sidebar.markdown("**線上使用者**")
 for u in online_users:
     st.sidebar.write(u)
+
 
 
 
