@@ -38,6 +38,7 @@ st.title("💬 Streamlit 簡易聊天室")
 if "username" not in st.session_state:
     st.session_state.username = ""
 
+# 只有沒有名字時才顯示輸入框
 if st.session_state.username == "":
     with st.form("set_username_form"):
         username_input = st.text_input("請輸入你的名字")
@@ -45,7 +46,10 @@ if st.session_state.username == "":
         if submitted and username_input.strip():
             st.session_state.username = username_input.strip()
             st.experimental_rerun()  # 提交後刷新頁面
+    st.stop()  # 停止下面聊天室渲染
+
 username = st.session_state.username
+
 
 # 讀取聊天紀錄
 # messages = sheet.get_all_records()
@@ -183,6 +187,7 @@ for u in online_users:
     st.sidebar.write(u)
 # 自動刷新 (每 10 秒)
 st_autorefresh(interval=10000, key="chat_refresh")
+
 
 
 
