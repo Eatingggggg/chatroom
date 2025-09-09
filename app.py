@@ -8,7 +8,7 @@ import pytz
 from streamlit_autorefresh import st_autorefresh
 
 # 自動刷新 (每 3 秒)
-st_autorefresh(interval=3000, key="chat_refresh")
+st_autorefresh(interval=10000, key="chat_refresh")
 
 # 設定時區，例如台北
 tz = pytz.timezone("Asia/Taipei")
@@ -79,6 +79,7 @@ st.markdown("""
 }
 .user {
     background-color: #84C1FF;  /* 自己輸入訊息顏色 */
+    color: black;
     margin-left: auto;
     text-align: right;
 }
@@ -152,6 +153,7 @@ if submitted and msg:
          # 更新 session_state 訊息數量，用於觸發重新渲染
          st.session_state['last_update'] = time.time()
 last_update = st.session_state.get('last_update', None)
+
 
 
 
