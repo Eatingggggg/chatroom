@@ -51,6 +51,24 @@ if st.session_state.username == "":
     st.stop()
 
 username = st.session_state.username
+user_initial = row['user'][0]  # 取名字第一個字
+if row['user'] == username:
+    st.markdown(
+        f"<div class='chat-bubble user'>"
+        f"<div class='avatar-letter'>{user_initial}</div>"
+        f"<div><b>{row['user']}</b><br>{row['message']}"
+        f"<div class='timestamp'>{row['timestamp']}</div></div></div>",
+        unsafe_allow_html=True
+    )
+else:
+    st.markdown(
+        f"<div class='chat-bubble other'>"
+        f"<div class='avatar-letter'>{user_initial}</div>"
+        f"<div><b>{row['user']}</b><br>{row['message']}"
+        f"<div class='timestamp'>{row['timestamp']}</div></div></div>",
+        unsafe_allow_html=True
+    )
+
 
 # 讀取聊天紀錄
 # messages = sheet.get_all_records()
@@ -75,19 +93,34 @@ st.markdown("""
     border-radius: 15px;
     max-width: 70%;
     word-wrap: break-word;
-    color: white;  /* 預設文字顏色白色 */
+    display: flex;
+    align-items: center;
 }
+
+.avatar-letter {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #999;  /* 頭像背景顏色 */
+    color: white;            /* 字體顏色 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
 .user {
-    background-color: #84C1FF;  /* 自己輸入訊息顏色 */
-    color: black;
+    background-color: #84C1FF;
     margin-left: auto;
     text-align: right;
+    flex-direction: row-reverse; /* 自己訊息頭像在右邊 */
 }
+
 .other {
-    background-color: #ECECEC;  /* 他人訊息顏色 */
-    color: black;  /* 他人訊息文字顏色黑色 */
+    background-color: #ECECEC;
+    color: black;
     margin-right: auto;
-    text-align: left;
 }
 .timestamp {
     font-size: 14px;
@@ -153,6 +186,7 @@ if submitted and msg:
          # 更新 session_state 訊息數量，用於觸發重新渲染
          st.session_state['last_update'] = time.time()
 last_update = st.session_state.get('last_update', None)
+
 
 
 
