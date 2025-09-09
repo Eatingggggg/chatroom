@@ -46,7 +46,7 @@ sheet = client.open(SHEET_NAME).sheet1
 
 # Streamlit 頁面設定
 st.set_page_config(page_title="聊天室", page_icon="💬", layout="wide")
-st.title("💬 Streamlit 簡易聊天室")
+st.title("💬 簡易聊天室")
 
 # 使用者名稱（保存在 session）
 if "username" not in st.session_state:
@@ -200,8 +200,9 @@ st.sidebar.markdown(f"**線上人數：{len(online_users)}**")
 st.sidebar.markdown("**線上使用者**")
 for u in online_users:
     st.sidebar.write(u)
-# 自動刷新 (每 10 秒)
-st_autorefresh(interval=10000, key="chat_refresh")
+# 自動刷新 (每 5 秒)
+st_autorefresh(interval=5000, key="chat_refresh")
+
 
 
 
