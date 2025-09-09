@@ -16,6 +16,19 @@ tz = pytz.timezone("Asia/Taipei")
 # # 取得當前時間
 # now = datetime.now(tz)
 
+# 取最近 5 分鐘訊息的使用者
+time_threshold = now - timedelta(minutes=15)
+
+# 篩選在線使用者
+df['timestamp_dt'] = pd.to_datetime(df['timestamp'])  # 將字串轉 datetime
+online_df = df[df['timestamp_dt'] >= time_threshold]
+online_users = online_df['user'].unique().tolist()
+
+st.sidebar.markdown(f"**線上人數：{len(online_users)}**")
+st.sidebar.markdown("**線上使用者**")
+for u in online_users:
+    st.sidebar.write(u)
+
 # Google Sheet 設定
 SHEET_NAME = "chatroom"
 scope = ["https://www.googleapis.com/auth/spreadsheets",
@@ -171,6 +184,7 @@ if submitted and msg:
          # 更新 session_state 訊息數量，用於觸發重新渲染
          st.session_state['last_update'] = time.time()
 last_update = st.session_state.get('last_update', None)
+
 
 
 
