@@ -90,7 +90,7 @@ st.markdown("""
     text-align: left;
 }
 .timestamp {
-    font-size: 10px;
+    font-size: 14px;
     color: gray;
     margin-top: 3px;
 }
@@ -153,6 +153,7 @@ if submitted and msg:
          # 更新 session_state 訊息數量，用於觸發重新渲染
          st.session_state['last_update'] = time.time()
 last_update = st.session_state.get('last_update', None)
+
 
 
 
