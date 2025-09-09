@@ -14,7 +14,7 @@ st_autorefresh(interval=10000, key="chat_refresh")
 tz = pytz.timezone("Asia/Taipei")
 
 # # 取得當前時間
-# now = datetime.now(tz)
+now = datetime.now(tz)
 
 # 取最近 5 分鐘訊息的使用者
 time_threshold = now - timedelta(minutes=15)
@@ -184,6 +184,7 @@ if submitted and msg:
          # 更新 session_state 訊息數量，用於觸發重新渲染
          st.session_state['last_update'] = time.time()
 last_update = st.session_state.get('last_update', None)
+
 
 
 
