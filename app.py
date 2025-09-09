@@ -45,7 +45,7 @@ if st.session_state.username == "":
         submitted = st.form_submit_button("確定")
         if submitted and username_input.strip():
             st.session_state.username = username_input.strip()
-            st.experimental_rerun()  # 提交後刷新頁面
+            st.rerun()  # 提交後刷新頁面
     st.stop()  # 停止下面聊天室渲染
 
 username = st.session_state.username
@@ -187,6 +187,7 @@ for u in online_users:
     st.sidebar.write(u)
 # 自動刷新 (每 10 秒)
 st_autorefresh(interval=10000, key="chat_refresh")
+
 
 
 
