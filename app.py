@@ -35,20 +35,19 @@ st.set_page_config(page_title="聊天室", page_icon="💬", layout="wide")
 st.title("💬 Streamlit 簡易聊天室")
 
 # 使用者名稱（保存在 session）
-# if "username" not in st.session_state:
-#     st.session_state.username = ""
-
-# if not st.session_state.username:
-#     st.session_state.username = st.text_input("請輸入你的名字", key="set_user")
-#     st.stop()
 if "username" not in st.session_state:
     st.session_state.username = ""
 
-if st.session_state.username == "":
-    username_input = st.text_input("請輸入你的名字", "")
-    if username_input.strip():  # 避免只輸入空白
-        st.session_state.username = username_input.strip()
+username_input = st.text_input("請輸入你的名字")
+if st.session_state.username == "" and username_input.strip():
+    st.session_state.username = username_input.strip()
+
+username = st.session_state.username
+
+if username == "":
+    st.warning("請先輸入名字才能進入聊天室")
     st.stop()
+
 
 username = st.session_state.username
 
@@ -188,6 +187,7 @@ for u in online_users:
     st.sidebar.write(u)
 # 自動刷新 (每 10 秒)
 st_autorefresh(interval=10000, key="chat_refresh")
+
 
 
 
